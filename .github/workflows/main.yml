@@ -1,7 +1,15 @@
 name: 'Delete workflow runs'
 description: 'An action to delete workflow runs in a repository.'
 author: 'Bright Ran'
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 inputs:
   token:
     description: 'The token used to authenticate.'
