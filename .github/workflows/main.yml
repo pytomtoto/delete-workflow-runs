@@ -2,14 +2,23 @@ name: 'Delete workflow runs'
 description: 'An action to delete workflow runs in a repository.'
 author: 'Bright Ran'
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      days:
+        description: 'Number of days.'
+        required: true
+        default: 3
+
+jobs:
+  del_runs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs
+        uses: ActionsRML/delete-workflow-runs@main
+        with:
+          token: ${{ secrets.token }}
+          repository: ${{ secrets.repository }}
+          retain_days: ${{ secrets.retain_days }}
 inputs:
   token:
     description: 'The token used to authenticate.'
